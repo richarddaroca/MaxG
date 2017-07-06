@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">﻿
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
+
+    {% block title %}{% endblock %}
+</head>
+
+<div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'accounts:home' %}">Musicbook</a>
+          </div>
+
+          <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if not user.is_authenticated %}
+
+                    <li><a href="{% url 'accounts:reset_password' %}"> Reset Password <span class="sr-only">(current)</span></a></li>
+                    <li><a class="active glyphicon glyphicon-log-in" href="{% url 'accounts:login' %}"> Login<span class="sr-only">(current)</span></a></li>
+                {% else %}
+
+{#                    <li><a class="active" href="{% url 'accounts:profile' %}"> My Account <span class="sr-only">(current)</span></a></li>#}
+                    <li><a href="{% url 'accounts:editprofile' %}"> Edit Profile <span class="sr-only">(current)</span></a></li>
+                    <li><a href="{% url 'accounts:logout' %}"> Logout<span class="sr-only">(current)</span></a></li>
+                    <li><a href="{% url 'accounts:change-password' %}"> Change Password <span class="sr-only">(current)</span></a></li>
+
+                {% endif %}
+
+                <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+
+</div> <!-- /container -->
+
+{% block body %}
+
+
+{% endblock %}
+</html>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>My Profile</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="avatar">
+
+            {% if user.userprofile.image %}
+                <img src="{{ user.userprofile.image.url }} ">
+            {% else %}
+
+                <img src="/Users/rdaroca/PycharmProjects/MaxG/MaxG/static/avatar.png" width="270">
+
+            {% endif %}
+
+        </div>
+
+        <p>Name: {{ user }}</p>
+        <p>First Name: {{ user.first_name }}</p>
+        <p>email: {{ user.email }}</p>
+        <p>Description: {{ user.userprofile.description }}</p>
+
+
+{% endblock %}

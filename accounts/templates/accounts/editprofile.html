@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container">
+    <h1>Edit Account</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        {% include 'accounts/form_template.html' %}
+
+        <button class="btn btn-default" type="submit" name="login">Confirm</button>
+    </form>
+</div>
+
+{% endblock %}
