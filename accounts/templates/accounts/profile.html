@@ -1,4 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'admin/base_site.html' %}
+
+{% load static %}
+
 {% block title %}
     <title>My Profile</title>
 {% endblock %}
@@ -11,7 +14,7 @@
                 <img src="{{ user.userprofile.image.url }} ">
             {% else %}
 
-                <img src="/Users/rdaroca/PycharmProjects/MaxG/MaxG/static/avatar.png" width="270">
+                <img src="{% static "accounts/images/avatar.png" %}" width="270"/>
 
             {% endif %}
 

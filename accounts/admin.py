@@ -8,3 +8,5 @@ from .models import UserProfile, Album
 
 admin.site.register(UserProfile)
 admin.site.register(Album)
+
+
