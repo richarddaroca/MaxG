@@ -12,9 +12,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
-def home(request):
-    return render(request, 'accounts/home.html')
-
 class SigninFormView(View):
     form_class = SigninForm
     template_name = 'accounts/signup.html'

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -135,6 +136,7 @@ LOGOUT_REDIRECT_URL = '/account/login' # url where after login will be redirecte
 LOGIN_URL = '/account/login/'
 
 LOGIN_EXEMPT_URLS = (
+    r'^home/$',
     r'^account/logout/$',
     r'^account/signup/$',
     r'^account/profile/reset-password/$',

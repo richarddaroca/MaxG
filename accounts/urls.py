@@ -7,7 +7,6 @@ from django.contrib.auth.views import (password_reset, password_reset_done,
 app_name = 'accounts'
 
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
     url(r'^login/$', views.LoginFormView.as_view(), name='login'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
     url(r'^signup/$', views.SigninFormView.as_view(), name='signup'),
