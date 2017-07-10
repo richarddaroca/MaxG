@@ -3,7 +3,7 @@
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from .forms import LoginForm, SigninForm, EditForm
+from .forms import LoginForm, SigninForm, EditForm, EditProfileImageForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -79,14 +79,17 @@ class EditProfileView(View):
 
     def post(self, request):
         form = EditForm(request.POST, instance=request.user)
+        profileform = EditProfileImageForm(request.POST, request.FILES, instance=request.user.userprofile)
 
-        if form.is_valid():
+        if form.is_valid() and profileform.is_valid():
             form.save()
+            profileform.save()
             return redirect('/account/profile')
 
     def get(self, request):
         form = EditForm(instance=request.user)
-        return render(request, self.template_name, {'form': form})
+        profileform = EditProfileImageForm(instance=request.user.userprofile)
+        return render(request, self.template_name, {'form': form, 'profileform': profileform})
 
 class ChangePassword(LoginRequiredMixin, View):
     template_name = 'accounts/change-password.html'
