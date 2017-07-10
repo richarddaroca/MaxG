@@ -111,3 +111,5 @@ class ChangePassword(LoginRequiredMixin, View):
         return render(request, self.template_name, {'form': form})
 
 
+
+

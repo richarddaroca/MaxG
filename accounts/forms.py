@@ -58,7 +58,7 @@ class EditForm(forms.ModelForm):
 class EditProfileImageForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('image', 'description')
+        fields = ('image', 'description', 'city')
 
 
 
