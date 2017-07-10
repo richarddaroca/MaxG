@@ -8,26 +8,31 @@ from .models import UserProfile, Album
 
 
 admin.site.register(Album)
+
+admin.site.register(UserProfile)
+
+
+
+
+# need to fix bug first userprofile object
+
 # https://www.youtube.com/watch?v=KqbvhPLGJwA&index=38&list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj
-
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'user_info', 'city', 'website', 'phone')
-
-    def user_info(self, obj):           # this is used if we want to customize the header of the column
-        return obj.description      # obj is the current object and description is the the column name
-
-# https://www.youtube.com/watch?v=j-CCNJmZQ6c&index=39&list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj
-# get_queryset is inherited form the ModelAdmin class
-
-    def get_queryset(self, request):    # this customizes the order on how the objects are displayed
-# since we still want to use the default get_queryset inherited on ModelAdmin we use the "super(UserProfileAdmin, self)"
-        queryset = super(UserProfileAdmin, self).get_queryset(request)
-        queryset = queryset.order_by('phone', 'user')
-        return queryset
-
-    user_info.short_description = 'Info'    # We can use this to overwrite the header name instead of using the method name
-
-admin.site.register(UserProfile, UserProfileAdmin)
-
-
-
+#
+# class UserProfileAdmin(admin.ModelAdmin):
+#     list_display = ('user', 'user_info', 'city', 'website', 'phone')
+#
+#     def user_info(self, obj):           # this is used if we want to customize the header of the column
+#         return obj.description      # obj is the current object and description is the the column name
+#
+# # https://www.youtube.com/watch?v=j-CCNJmZQ6c&index=39&list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj
+# # get_queryset is inherited form the ModelAdmin class
+#
+#     def get_queryset(self, request):    # this customizes the order on how the objects are displayed
+# # since we still want to use the default get_queryset inherited on ModelAdmin we use the "super(UserProfileAdmin, self)"
+#         queryset = super(UserProfileAdmin, self).get_queryset(request)
+#         queryset = queryset.order_by('phone', 'user')
+#         return queryset
+#
+#     user_info.short_description = 'Info'    # We can use this to overwrite the header name instead of using the method name
+#
+# admin.site.register(UserProfile, UserProfileAdmin)
