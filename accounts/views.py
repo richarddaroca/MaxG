@@ -95,9 +95,13 @@ class EditProfileView(View):
     def get(self, request):
         form = EditForm(instance=request.user)
         profileform = EditProfileImageForm(instance=request.user.userprofile)
+<<<<<<< Updated upstream
         args = {'form': form, 'profileform': profileform}
 
         return render(request, self.template_name, args)
+=======
+        return render(request, self.template_name, {'form': form, 'profileform': profileform})
+>>>>>>> Stashed changes
 
 class ChangePassword(LoginRequiredMixin, View):
     template_name = 'accounts/change-password.html'
