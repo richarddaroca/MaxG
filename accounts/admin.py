@@ -14,9 +14,9 @@ admin.site.register(UserProfile)
 
 
 
-# need to fix bug first userprofile object
-
-# https://www.youtube.com/watch?v=KqbvhPLGJwA&index=38&list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj
+# # need to fix bug first userprofile object
+# #
+# # https://www.youtube.com/watch?v=KqbvhPLGJwA&index=38&list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj
 #
 # class UserProfileAdmin(admin.ModelAdmin):
 #     list_display = ('user', 'user_info', 'city', 'website', 'phone')
