@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -25,7 +26,6 @@ class SigninFormView(View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-
             form.save()
             login(request, form.save())
             return redirect('accounts:profile')
@@ -69,8 +69,14 @@ class ProfileView(View):
 
     template_name = 'accounts/profile.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
+    def get(self, request, pk=None):         # pk=none so that we even if there is no pk passed it would just post the request.user
+        # this is for the  accounts: profile_with_pk
+        if pk:
+            user = User.objects.get(pk=pk)   # depending on the passed pk from urls.py line 14 it would get the corresponding user
+        else:
+            user = request.user
+
+        return render(request, self.template_name, {'user': user})
 
 
 class EditProfileView(View):
@@ -89,7 +95,9 @@ class EditProfileView(View):
     def get(self, request):
         form = EditForm(instance=request.user)
         profileform = EditProfileImageForm(instance=request.user.userprofile)
-        return render(request, self.template_name, {'form': form, 'profileform': profileform})
+        args = {'form': form, 'profileform': profileform}
+
+        return render(request, self.template_name, args)
 
 class ChangePassword(LoginRequiredMixin, View):
     template_name = 'accounts/change-password.html'
