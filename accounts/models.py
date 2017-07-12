@@ -8,10 +8,11 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 
+#refer to admin.py
 # https://www.youtube.com/watch?v=484iSmV3l80&list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj&index=40
-class UserProfileManager(models.Manager):
-    def get_queryset(self):
-        return super(UserProfileManager, self).get_queryset().filter(city = 'cdo')
+# class UserProfileManager(models.Manager):
+#     def get_queryset(self):
+#         return super(UserProfileManager, self).get_queryset().filter(city = 'cdo')
 
 
 class UserProfile(models.Model):
@@ -22,7 +23,7 @@ class UserProfile(models.Model):
     phone = models.IntegerField(default=0)
     image = models.ImageField(upload_to='profile_image', blank=True)
 
-    cdo = UserProfileManager()
+    # cdo = UserProfileManager()
 
     def __str__(self):
         return self.user.username

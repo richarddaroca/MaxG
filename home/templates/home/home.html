@@ -3,11 +3,41 @@
 {% block title %}<title>Home</title>{% endblock %}
 
 {% block body %}
-    <div class="container">
+<div class="container">
+    <div class="col-md-8">
 
-        <h1> HOME view </h1>
+            <form method="Post">
+                {% csrf_token %}
+                <h1> HOME view </h1>
+
+                    {{ form.post }}
+
+                <br>
+                <button type="submit">Post</button>
+                {% for post in post %}
+                    <h2>{{ post.post }}</h2>
+                    <h4> Posted by: {{ post.user.get_full_name }} on {{ post.created }}</h4>
+                {% endfor %}
+            </form>
+
+        </div>
+
+
+
+    <div class="col-md-4">
+        <h2>Users</h2>
+        {% for user in users %}
+
+            {# When this user link is clicked it would pass the pk=user.pk of the selected user to the url line 14 #}
+            <a href="{% url 'accounts:profile-with-pk' pk=user.pk %}">
+                <h3>{{ user.username }}</h3>
+            </a>
+
+        {% endfor %}
 
     </div>
+
+</div>
 
 
 {% endblock %}

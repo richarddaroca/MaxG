@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.auth.forms import UserChangeForm
+from models import UserProfile
 
 
 
@@ -48,8 +49,16 @@ class SigninForm(forms.ModelForm):
             user.save()
         return user
 
-class EditForm(UserChangeForm):
+class EditForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password')
+        fields = ('username', 'first_name', 'last_name', 'email')
+
+
+class EditProfileImageForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('image', 'description', 'city')
+
+
 

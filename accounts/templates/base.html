@@ -3,15 +3,15 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">﻿
 
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  {# this just fixes the issue so it would recognize the sizes when opened in a mobile #}
 
     {% block title %}{% endblock %}
 </head>
-
+<body>
 <div class="container">
 
       <!-- Static navbar -->
@@ -34,17 +34,17 @@
 
                     <li><a href="{% url 'accounts:reset_password' %}"> Reset Password <span class="sr-only">(current)</span></a></li>
                     <li><a class="active glyphicon glyphicon-log-in" href="{% url 'accounts:login' %}"> Login<span class="sr-only">(current)</span></a></li>
+                    <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
                 {% else %}
 
 {#                    <li><a class="active" href="{% url 'accounts:profile' %}"> My Account <span class="sr-only">(current)</span></a></li>#}
                     <li><a href="{% url 'accounts:profile' %}"> Profile <span class="sr-only">(current)</span></a></li>
                     <li><a href="{% url 'accounts:editprofile' %}"> Edit Profile <span class="sr-only">(current)</span></a></li>
-                    <li><a href="{% url 'accounts:logout' %}"> Logout<span class="sr-only">(current)</span></a></li>
                     <li><a href="{% url 'accounts:change-password' %}"> Change Password <span class="sr-only">(current)</span></a></li>
+                    <li><a href="{% url 'accounts:logout' %}"> Logout<span class="sr-only">(current)</span></a></li>
+
 
                 {% endif %}
-
-                <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
 
             </ul>
           </div><!--/.nav-collapse -->
@@ -58,4 +58,15 @@
 
 
 {% endblock %}
+</body>
+
+{# this is used so that the burger button on mobile will work #}
+{# This should be place above the bootstrap since it relies on Jquesry#}
+<script
+			  src="https://code.jquery.com/jquery-3.2.1.min.js"
+			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			  crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </html>

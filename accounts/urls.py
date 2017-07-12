@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
     url(r'^signup/$', views.SigninFormView.as_view(), name='signup'),
     url(r'^profile/$', views.ProfileView.as_view(), name='profile'),
+    # the passed pk from home.html will then be received by the (?P<pk>\d+)
+    url(r'^profile/(?P<pk>\d+)/$', views.ProfileView.as_view(), name='profile-with-pk'),
     url(r'^profile/edit/$', views.EditProfileView.as_view(), name='editprofile'),
     url(r'^profile/change-password/$', views.ChangePassword.as_view(), name='change-password'),
     url(r'^profile/reset-password/$',
@@ -38,7 +40,10 @@ urlpatterns = [
         password_reset_complete,
         {'template_name': 'registration/password_reset_complete.html'},
         name='password_reset_complete'
-        )
+        ),
+
+
+
 
 
 ]

@@ -3,11 +3,12 @@
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from .forms import LoginForm, SigninForm, EditForm
+from .forms import LoginForm, SigninForm, EditForm, EditProfileImageForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -25,7 +26,6 @@ class SigninFormView(View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-
             form.save()
             login(request, form.save())
             return redirect('accounts:profile')
@@ -69,8 +69,14 @@ class ProfileView(View):
 
     template_name = 'accounts/profile.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
+    def get(self, request, pk=None):         # pk=none so that we even if there is no pk passed it would just post the request.user
+        # this is for the  accounts: profile_with_pk
+        if pk:
+            user = User.objects.get(pk=pk)   # depending on the passed pk from urls.py line 14 it would get the corresponding user
+        else:
+            user = request.user
+
+        return render(request, self.template_name, {'user': user})
 
 
 class EditProfileView(View):
@@ -79,14 +85,19 @@ class EditProfileView(View):
 
     def post(self, request):
         form = EditForm(request.POST, instance=request.user)
+        profileform = EditProfileImageForm(request.POST, request.FILES, instance=request.user.userprofile)
 
-        if form.is_valid():
+        if form.is_valid() and profileform.is_valid():
             form.save()
+            profileform.save()
             return redirect('/account/profile')
 
     def get(self, request):
         form = EditForm(instance=request.user)
-        return render(request, self.template_name, {'form': form})
+        profileform = EditProfileImageForm(instance=request.user.userprofile)
+        args = {'form': form, 'profileform': profileform}
+
+        return render(request, self.template_name, args)
 
 class ChangePassword(LoginRequiredMixin, View):
     template_name = 'accounts/change-password.html'
@@ -106,5 +117,7 @@ class ChangePassword(LoginRequiredMixin, View):
     def get(self, request):
         form = PasswordChangeForm(user=request.user)
         return render(request, self.template_name, {'form': form})
+
+
 
 
