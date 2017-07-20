@@ -10,6 +10,7 @@ class HomeForm(forms.ModelForm):
             'class': 'form-control',                        # form-control is just a bootstrap class
             'placeholder': 'Write your Post here'           # placeholder is the text we see on the blank text field
         }
+
     ))
 
     class Meta:

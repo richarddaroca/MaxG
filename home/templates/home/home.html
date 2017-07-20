@@ -16,6 +16,8 @@
                 <button type="submit">Post</button>
                 {% for post in post %}
                     <h2>{{ post.post }}</h2>
+                    <h4>{{ post.request.user.pk }}</h4>
+                    <h4>{{ post.user.pk }}</h4>
                     <h4> Posted by: {{ post.user.get_full_name }} on {{ post.created }}</h4>
                 {% endfor %}
             </form>
@@ -26,14 +28,40 @@
 
     <div class="col-md-4">
         <h2>Users</h2>
+
         {% for user in users %}
+
 
             {# When this user link is clicked it would pass the pk=user.pk of the selected user to the url line 14 #}
             <a href="{% url 'accounts:profile-with-pk' pk=user.pk %}">
                 <h3>{{ user.username }}</h3>
             </a>
 
+            {% if user not in friends %}
+
+                <a href="{% url 'home:connect_friend' operation='add' pk=user.pk %}">
+                    <button type="button" class="btn btn-success">Add friend</button>
+                </a>
+
+            {% endif %}
+
         {% endfor %}
+
+        <h2>Friends</h2>
+        {% for friend in friends %}
+
+{#             When this user link is clicked it would pass the pk=user.pk of the selected user to the url line 14#}
+            <a href="{% url 'accounts:profile-with-pk' pk=user.pk %}">
+                <h3>{{ friend.username }}</h3>
+            </a>
+            <a href="{% url 'home:connect_friend' operation='unfriend' pk=friend.pk %}">
+                <button type="button" class="btn btn-default">Unfriend</button>
+            </a>
+
+        {% endfor %}
+
+
+
 
     </div>
 
